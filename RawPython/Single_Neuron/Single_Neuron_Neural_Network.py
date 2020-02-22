@@ -93,10 +93,6 @@ def initialize_with_zeros(dim):
     return w, b
 
 
-dim = 2
-w, b = initialize_with_zeros(dim)
-
-
 #  FUNCTION: propagate
 
 def propagate(w, b, X, Y):
@@ -143,7 +139,7 @@ def propagate(w, b, X, Y):
     return grads, cost
 
 
-# GRADED FUNCTION: optimize
+# FUNCTION: optimize
 
 def optimize(w, b, X, Y, num_iterations, learning_rate, print_cost=False):
     """
@@ -295,4 +291,4 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations=2000, learning_rate=0
     return d
 
 
-d = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations = 2000, learning_rate = 0.005, print_cost = True)
+d = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations=2000, learning_rate=0.005, print_cost=True)
