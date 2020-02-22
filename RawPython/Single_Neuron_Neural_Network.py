@@ -4,11 +4,9 @@ import data_fetcher
 # Loading the data (cat/non-cat)
 train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = data_fetcher.load_dataset()
 
-### START CODE HERE ### (≈ 3 lines of code)
 m_train = train_set_x_orig.shape[0]
 m_test = test_set_x_orig.shape[0]
 num_px = train_set_x_orig.shape[1]
-### END CODE HERE ###
 
 print("Number of training examples: m_train = " + str(m_train))
 print("Number of testing examples: m_test = " + str(m_test))
@@ -20,11 +18,8 @@ print("test_set_x shape: " + str(test_set_x_orig.shape))
 print("test_set_y shape: " + str(test_set_y.shape))
 
 # Reshape the training and test examples
-
-### START CODE HERE ### (≈ 2 lines of code)
 train_set_x_flatten = train_set_x_orig.reshape(train_set_x_orig.shape[0], -1).T
 test_set_x_flatten = test_set_x_orig.reshape(test_set_x_orig.shape[0], -1).T
-### END CODE HERE ###
 
 print("train_set_x_flatten shape: " + str(train_set_x_flatten.shape))
 print("train_set_y shape: " + str(train_set_y.shape))
@@ -38,7 +33,6 @@ test_set_x = test_set_x_flatten / 255.
 
 
 # FUNCTION: sigmoid
-
 def sigmoid(z):
     """
     Compute the sigmoid of z
@@ -50,15 +44,12 @@ def sigmoid(z):
     s -- sigmoid(z)
     """
 
-    ### START CODE HERE ### (≈ 1 line of code)
     s = 1 / (1 + np.exp(-z))
-    ### END CODE HERE ###
 
     return s
 
 
 #  FUNCTION: initialize_with_zeros
-
 def initialize_with_zeros(dim):
     """
     This function creates a vector of zeros of shape (dim, 1) for w and initializes b to 0.
@@ -71,10 +62,8 @@ def initialize_with_zeros(dim):
     b -- initialized scalar (corresponds to the bias)
     """
 
-    ### START CODE HERE ### (≈ 1 line of code)
     w = np.zeros((dim, 1))
     b = 0
-    ### END CODE HERE ###
 
     assert (w.shape == (dim, 1))
     assert (isinstance(b, float) or isinstance(b, int))
@@ -83,7 +72,6 @@ def initialize_with_zeros(dim):
 
 
 #  FUNCTION: propagate
-
 def propagate(w, b, X, Y):
     """
     Implement the cost function and its gradient for the propagation explained above
@@ -106,16 +94,12 @@ def propagate(w, b, X, Y):
     m = X.shape[1]
 
     # FORWARD PROPAGATION (FROM X TO COST)
-    ### START CODE HERE ### (≈ 2 lines of code)
     A = sigmoid(np.dot(w.T, X) + b)  # compute activation
     cost = -1 / m * np.sum(Y * np.log(A) + (1 - Y) * (np.log(1 - A)))  # compute cost
-    ### END CODE HERE ###
 
     # BACKWARD PROPAGATION (TO FIND GRAD)
-    ### START CODE HERE ### (≈ 2 lines of code)
     dw = 1 / m * np.dot(X, ((A - Y).T))
     db = 1 / m * np.sum(A - Y)
-    ### END CODE HERE ###
 
     assert (dw.shape == w.shape)
     assert (db.dtype == float)
@@ -129,7 +113,6 @@ def propagate(w, b, X, Y):
 
 
 # FUNCTION: optimize
-
 def optimize(w, b, X, Y, num_iterations, learning_rate, print_cost=False):
     """
     This function optimizes w and b by running a gradient descent algorithm
@@ -158,20 +141,16 @@ def optimize(w, b, X, Y, num_iterations, learning_rate, print_cost=False):
 
     for i in range(num_iterations):
 
-        # Cost and gradient calculation (≈ 1-4 lines of code)
-        ### START CODE HERE ###
+        # Cost and gradient calculation
         grads, cost = propagate(w, b, X, Y)
-        ### END CODE HERE ###
 
         # Retrieve derivatives from grads
         dw = grads["dw"]
         db = grads["db"]
 
-        # update rule (≈ 2 lines of code)
-        ### START CODE HERE ###
+        # update rule
         w = w - learning_rate * dw
         b = b - learning_rate * db
-        ### END CODE HERE ###
 
         # Record the costs
         if i % 100 == 0:
@@ -191,7 +170,6 @@ def optimize(w, b, X, Y, num_iterations, learning_rate, print_cost=False):
 
 
 #  FUNCTION: predict
-
 def predict(w, b, X):
     '''
     Predict whether the label is 0 or 1 using learned logistic regression parameters (w, b)
@@ -210,18 +188,14 @@ def predict(w, b, X):
     w = w.reshape(X.shape[0], 1)
 
     # Compute vector "A" predicting the probabilities of a cat being present in the picture
-    ### START CODE HERE ### (≈ 1 line of code)
     A = sigmoid(np.dot(w.T, X) + b)
-    ### END CODE HERE ###
 
     # for i in range(A.shape[1]):
 
     # Convert probabilities A[0,i] to actual predictions p[0,i]
-    ### START CODE HERE ### (≈ 4 lines of code)
     Y_prediction = A
     Y_prediction[Y_prediction > 0.5] = 1
     Y_prediction[Y_prediction <= 0.5] = 0
-    ### END CODE HERE ###
 
     assert (Y_prediction.shape == (1, m))
 
@@ -229,7 +203,6 @@ def predict(w, b, X):
 
 
 #  FUNCTION: model
-
 def model(X_train, Y_train, X_test, Y_test, num_iterations=2000, learning_rate=0.5, print_cost=False):
     """
     Builds the logistic regression model by calling the function you've implemented previously
@@ -249,21 +222,19 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations=2000, learning_rate=0
 
     ### START CODE HERE ###
 
-    # initialize parameters with zeros (≈ 1 line of code)
+    # initialize parameters with zeros
     w, b = initialize_with_zeros(X_train.shape[0])
 
-    # Gradient descent (≈ 1 line of code)
+    # Gradient descent
     parameters, grads, costs = optimize(w, b, X_train, Y_train, num_iterations, learning_rate, print_cost)
 
     # Retrieve parameters w and b from dictionary "parameters"
     w = parameters["w"]
     b = parameters["b"]
 
-    # Predict test/train set examples (≈ 2 lines of code)
+    # Predict test/train set examples
     Y_prediction_test = predict(w, b, X_test)
     Y_prediction_train = predict(w, b, X_train)
-
-    ### END CODE HERE ###
 
     # Print train/test Errors
     print("train accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_train - Y_train)) * 100))
@@ -281,6 +252,5 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations=2000, learning_rate=0
 
 
 d = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations=2000, learning_rate=0.005, print_cost=True)
-
-# Best iteration = 100
+# Best # of iterations = 100
 
