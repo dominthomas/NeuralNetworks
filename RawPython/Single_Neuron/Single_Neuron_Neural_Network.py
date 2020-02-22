@@ -1,19 +1,14 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib as plt
 import h5py
 import scipy
 from PIL import Image
 from scipy import ndimage
-from lr_utils import load_dataset
+import matplotlib.pyplot as plt
+from Single_Neuron import data_fetcher
 
 # Loading the data (cat/non-cat)
-train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = load_dataset()
-
-# Example of a picture
-index = 27
-plt.imshow(train_set_x_orig[index])
-print("y = " + str(train_set_y[:, index]) + ", it's a '" + classes[np.squeeze(train_set_y[:, index])].decode(
-    "utf-8") + "' picture.")
+train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = data_fetcher.load_dataset()
 
 ### START CODE HERE ### (≈ 3 lines of code)
 m_train = train_set_x_orig.shape[0]
@@ -292,3 +287,6 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations=2000, learning_rate=0
 
 
 d = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations=2000, learning_rate=0.005, print_cost=True)
+
+# Best iteration = 100
+
