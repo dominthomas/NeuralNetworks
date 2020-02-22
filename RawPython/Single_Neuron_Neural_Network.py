@@ -1,5 +1,5 @@
 import numpy as np
-from Single_Neuron import data_fetcher
+import data_fetcher
 
 # Loading the data (cat/non-cat)
 train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = data_fetcher.load_dataset()
