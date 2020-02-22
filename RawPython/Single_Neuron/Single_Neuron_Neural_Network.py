@@ -1,10 +1,4 @@
 import numpy as np
-import matplotlib as plt
-import h5py
-import scipy
-from PIL import Image
-from scipy import ndimage
-import matplotlib.pyplot as plt
 from Single_Neuron import data_fetcher
 
 # Loading the data (cat/non-cat)
