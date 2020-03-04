@@ -22,9 +22,9 @@ test_x_flatten = test_x_orig.reshape(test_x_orig.shape[0], -1).T
 train_x = train_x_flatten / 255.
 test_x = test_x_flatten / 255.
 
-### CONSTANTS DEFINING THE MODEL ####
+""" CONSTANTS DEFINING THE MODEL """
 n_x = 12288  # num_px * num_py * 3
-layers_dims = [12288, 40, 7, 5, 1] # 5-layer model # Add 20 & 10 to improve performance
+layers_dims = [12288, 40, 20, 10, 7, 5, 1]  # 5-layer model # Add 20 & 10 to improve performance
 
 
 # FUNCTION: L_layer_model
@@ -69,6 +69,7 @@ def L_layer_model(X, Y, layers_dims, learning_rate=0.0075, num_iterations=3000, 
         # Print the cost every 100 training example
         if print_cost and i % 100 == 0:
             print("Cost after iteration %i: %f" % (i, cost))
+            # We can even print the accuracy per 100 epochs.
         if print_cost and i % 100 == 0:
             costs.append(cost)
 
@@ -82,7 +83,7 @@ def L_layer_model(X, Y, layers_dims, learning_rate=0.0075, num_iterations=3000, 
     return parameters
 
 
-parameters = L_layer_model(train_x, train_y, layers_dims, num_iterations = 1200, print_cost = True)
+parameters = L_layer_model(train_x, train_y, layers_dims, num_iterations=1200, print_cost=True)
 
 pred_train = predict(train_x, train_y, parameters)
 pred_test = predict(test_x, test_y, parameters)
