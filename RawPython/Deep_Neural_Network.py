@@ -23,7 +23,7 @@ train_x = train_x_flatten / 255.
 test_x = test_x_flatten / 255.
 
 ### CONSTANTS DEFINING THE MODEL ####
-n_x = 12288  # num_px * num_px * 3
+n_x = 12288  # num_px * num_py * 3
 layers_dims = [12288, 40, 7, 5, 1] # 5-layer model # Add 20 & 10 to improve performance
 
 
